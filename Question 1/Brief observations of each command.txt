@@ -1,0 +1,19 @@
+1. Username and groups associated with your account
+Command: id
+Explanation: I used the id command to display my current user's ID(UID), primary group ID(GID), and all the groups my account is a member of. Upon execution, I observed my numerical IDs and group names, which verified my identity and access privileges on the server. One more observation I made is I am logged in as "coder" and have administrative privileges because my account belongs to the "sudo" group.
+
+2. Current shell being used
+Command: echo $SHELL
+Explanation: By using the echo command with the $SHELL environment variable, I outputted the full pathname to my default login shell. I observed a file path printed to the terminal, confirming the specific command-line interpreter I am currently using.
+
+3. Current working directory
+Command: pwd
+Explanation: I executed the pwd (print working directory) command to print the absolute physical path of the directory I am currently located in. I observed my full path from the root directory, which helped me verify my location before performing any file operations.
+
+4. List of files and directories in your workspace
+Command: ls -la
+Explanation: I used the ls command to list my directory contents, adding the -l option for a detailed long format and the -a option to ensure hidden files were included. I observed a comprehensive list of all files and directories in my workspace, along with their permissions, ownership, file sizes, and timestamps.
+
+5. Network connectivity verification result
+Commands: ping localhost, ping -c 5 127.0.0.2
+Explanation: Because external access to websites is disabled in my lab, I first used the ping localhost command to verify my own machine's reachability. Next, I used ping -c 5 127.0.0.2 to send exactly five ICMP echo request packets to another local machine, observing the round-trip communication time for both tests to successfully confirm my basic network connectivity.

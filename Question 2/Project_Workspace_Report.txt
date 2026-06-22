@@ -1,0 +1,9 @@
+coder@b4c42c420066:~$ umask
+0022
+coder@b4c42c420066:~$ mkdir -p Project_Workspace/Documentation
+coder@b4c42c420066:~$ ls -ld Project_Workspace
+drwxr-xr-x 3 coder coder 3 Jun 21 17:47 Project_Workspace
+coder@b4c42c420066:~$ chmod 2770 Project_Workspace
+coder@b4c42c420066:~$ ls -ld Project_Workspace
+drwxrws--- 3 coder coder 3 Jun 21 17:47 Project_Workspace
+coder@b4c42c420066:~$ 

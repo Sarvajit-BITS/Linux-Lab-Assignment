@@ -1,0 +1,18 @@
+1. Open files identified
+Command: cat /proc/$$/maps | head -n 10
+Explanation: Because lsof was unavailable in my containerized lab, I used the cat command to query the /proc/$$/maps virtual file, which displays the memory mappings for my current Bash shell's process ID. By piping the results into the head command to cleanly display just the first 10 lines, I successfully observed the underlying /usr/bin/bash executable file loaded into my shell's memory space with specific read and execute permissions.
+
+2. File descriptor observations
+Command: ls -l /proc/$$/fd
+Explanation: I listed the contents of the /proc/$$/fd directory, which contains a symbolic link for each file descriptor currently opened by my shell process. I successfully observed that standard input (0), standard output (1), and standard error (2) are all symbolically linked to my terminal device (/dev/pts/1), confirming where my interactive shell directs its default I/O.
+
+3. Output redirection and error redirection results
+Command: ls -ld /home /fake_directory > standard_output.log 2> error_output.log && cat standard_output.log && cat error_output.log
+Explanation: I intentionally ran a command designed to generate both a success message and an error message, using the > symbol to redirect the standard output stream (file descriptor 1) to standard_output.log and the 2> symbol to specifically target the standard error stream (file descriptor 2) to redirect it to error_output.log. I observed that Linux successfully separated the normal output and the error messages into their respective files, proving how file descriptors handle different types of output streams.
+
+4. Resource limits observed
+Command: ulimit -n
+Explanation: I used the ulimit -n command to check the resource limit on the number of file descriptors my current process is allowed to have open simultaneously. I observed my specific numeric limit (1048576), which acts as a crucial system safeguard since failing to properly manage and close unused file descriptors can cause a process to hit this ceiling, leading to resource leaks and performance issues.
+
+5. Explanation of how Linux manages file I/O
+Explanation: Linux manages file I/O using a universal I/O model, meaning the exact same system calls (open(), read(), write(), and close()) are used to perform operations on all types of files, including hardware devices. When a process opens a file, the kernel assigns it a unique integer called a file descriptor and tracks the file's operations using a per-process file descriptor table, a system-wide open file table, and a file system i-node table.

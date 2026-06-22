@@ -1,0 +1,12 @@
+Technical Observations
+Containerized Environment Constraints: 
+Because the restricted nature of my lab container prevented the use of lsof and blocked sudo privileges, I manually extracted the diagnostic data by directly querying the /proc/$$/maps and /proc/$$/fd virtual files. I observed that this practically demonstrates the power of the Linux virtual filesystem, where the kernel conveniently exposes process states and memory mappings directly as readable files.
+
+The "Everything is a File" Principle: 
+My investigation visually confirmed the fundamental Linux principle that treats hardware devices as standard files. I observed that the standard input (0), standard output (1), and standard error (2) file descriptors for my shell were all represented simply as symbolic links pointing directly to my active pseudo-terminal device (/dev/pts/1).
+
+Stream Independence and Exit Codes: 
+During my redirection experiment, I observed that the Linux kernel treats standard output and standard error as entirely independent data streams, which allowed me to separate and route them simultaneously into different log files. Furthermore, I observed that when my command triggered an error on the fake directory, it threw a non-zero exit status code that intentionally halted the execution of my subsequent && chained commands.
+
+Kernel Resource Protection: 
+By checking my system's limits with the ulimit command, I observed a strict cap (1,048,576) on concurrent open file descriptors. I concluded that this acts as a critical system safeguard, as it ensures that poorly written applications—which might loop the open() system call without a corresponding close() call—cannot exhaust system memory.

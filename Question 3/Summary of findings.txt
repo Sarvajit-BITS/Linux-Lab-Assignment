@@ -1,0 +1,7 @@
+Conclusions drawn from the experiment:
+
+Comparison between hard link and symbolic link:
+A hard link is a direct reference to the exact same inode and data blocks as the original file, meaning they are essentially the same physical file on the disk. In contrast, a symbolic (soft) link is a separate physical file with its own unique inode that acts merely as a shortcut pointing to the target file's path. Furthermore, hard links cannot span across different file systems, whereas symbolic links can.
+
+Conclusions drawn from the experiment:
+From this experiment, I concluded that hard links protect data from accidental deletion; because the hard link points directly to the data blocks, the data remains fully accessible even after the original filename is deleted. Symbolic links, however, are entirely dependent on the original file's path existing; when I deleted the original file, the symbolic link broke and could no longer access the data.

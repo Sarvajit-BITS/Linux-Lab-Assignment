@@ -1,0 +1,16 @@
+1. Create the file, hard link, and symbolic link
+Command: echo "Important Project Data" > original_file.txt && ln original_file.txt hard_link.txt && ln -s original_file.txt soft_link.txt
+Explanation: I first created a standard text file, and then used the ln command to create a hard link, which acts as a direct reference to the exact same inode and data blocks as the original file. Finally, I used the ln -s command to create a symbolic (soft) link, which creates a special separate file that references the target by its path name rather than pointing to the data directly.
+
+2. Inode numbers of all files & Comparison
+Command: ls -li originalFile.txt hardlink.txt softlink.txt
+Explanation: I used the ls -li command to display the inode numbers (the first column) and detailed metadata for all three files. I observed that the original file and the hard link share the exact same inode number (231047) because a hard link acts as a direct reference to the same underlying data blocks on the disk. Conversely, I observed that the soft link has a unique inode number (231169) and its permissions begin with an 'l' file type indicator, confirming it is a completely separate physical file that merely acts as a pointer to the original file's path
+
+3. Metadata collected using Linux utilities
+Command: stat originalFile.txt
+Explanation: I used the stat command to display detailed metadata about my file, including its permissions, allocated blocks, and access, modify, and change timestamps. I observed that the "Inode" field(ID is 231047) matched my previous output and the "Links" count was exactly 2, confirming that my hard link acts as a direct reference to the exact same underlying data blocks as the original file.
+
+4. Effect of deleting the original file
+Command: rm originalFile.txt && cat hardlink.txt && cat softlink.txt
+Explanation: I used the rm command to delete the original file, and then immediately attempted to read the contents of both links using the cat command. I observed that hardlink.txt successfully displayed the text because the data remains accessible as long as at least one hard link points to the inode, while softlink.txt returned a "No such file or directory" error because it was rendered a broken (dangling) link pointing to a nonexistent target.
+

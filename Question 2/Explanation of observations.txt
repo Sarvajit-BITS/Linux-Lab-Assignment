@@ -1,0 +1,22 @@
+1. Umask value used
+Command: umask
+Explanation: I ran the umask command to check my default permission mask before creating the workspace. I observed the current output value (typically 0022), which dictates the default permissions the system will initially assign to my newly created files and directories.
+
+2. Directory structure created
+Command: mkdir -p Project_Workspace/Documentation
+Explanation: I used the mkdir -p command to create the main project workspace and a nested documentation folder all at once. I observed that the directory hierarchy was successfully built without errors, preparing the structure for my team's files.
+
+3. File permissions before modification & Ownership details
+Command: ls -ld Project_Workspace
+Explanation: I used the ls -l command with the -d option to view the initial permissions and ownership details of the newly created directory. I observed the default permissions (typically drwxr-xr-x), and I confirmed that my user account and primary group are listed as the current owners.
+
+4. Modify Permissions for a Secure Team Workspace
+Command: chmod 770 Project_Workspace
+Explanation: Using the numeric(octal) mode, I used the chmod 770 command to assign full read, write, and execute permissions (the number 7) to the owner and the group, while setting no permissions (the number 0) for "others". I observed that this updates the directory so my team can work freely while locking out everyone else.
+
+5. File permissions after modification
+Command: ls -ld Project_Workspace
+Explanation: I ran the ls -ld command again to verify my security changes were successfully applied. I observed that the permissions updated to drwxrwx---, confirming that the workspace is now completely restricted from outside users.
+
+6. Explanation of how permissions protect project data
+Explanation: By using the chmod 770 command, I gave the owner and the project group full rwx (read, write, and execute) access, which is necessary for the team to create and collaborate on files. By setting the final digit to 0, I removed all permissions for "others" (shown as ---), which ensures that unauthorized users on the server cannot read, modify, or even access the project data.

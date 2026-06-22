@@ -1,0 +1,27 @@
+Storage Health Assessment and Documentation
+1. Create and edit the report file
+Command: vi Storage_Assessment_Report.txt
+Explanation: I used the vi command to create and open my storage assessment report text file. Once inside the editor, I pressed the i (Insert) key to enter insert mode so I could type my findings, and later used the ESC key followed by :wq to save and quit the file.
+
+2. Available storage devices
+Command: lsblk
+Explanation: I used the lsblk command to list all block storage devices currently attached to my system. I observed the tree-like structure of my physical disks and their corresponding partitions, which helped me identify the exact available storage devices I have to work with.
+
+3. Mounted file systems & Disk usage statistics
+Command: df -hT
+Explanation: I executed the df command with the -h option to display sizes in a human-readable format and the -T option to display the specific file system types. I successfully observed all my currently mounted file systems, their total capacity, and the exact percentage of disk space actively being used.
+
+4. Inode utilization
+Command: df -i
+Explanation: I used the df -i command to check the inode utilization across my mounted file systems. I observed the number of used and free inodes, which is critical because running out of available inodes prevents my system from creating new files, even if there is physical disk space remaining.
+
+5. Storage Health Observations
+Explanation: Based on my command outputs, I observed that the current storage health is highly stable because the overlay file system efficiently handles our files without taking up unnecessary physical disk space. Since we currently have plenty of raw storage capacity and very low inode usage, I concluded that the system has more than enough room to safely handle the deployment of the new application server without running into storage limits.
+
+6. Recommendations for Improving Storage Utilization
+Based on this assessment, I recommend the following practices to maintain storage efficiency:
+* Remove unnecessary temporary and log files regularly.
+* Archive older project files that are no longer actively used.
+* Monitor disk usage periodically using the df and du commands.
+* Track inode consumption on systems hosting many small files.
+* Implement automated cleanup and backup policies to optimize long-term storage efficiency.
